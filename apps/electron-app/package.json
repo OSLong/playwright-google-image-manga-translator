@@ -1,0 +1,51 @@
+{
+  "name": "@playwright-manga-translator/electron-app",
+  "version": "1.0.0",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "scripts": {
+    "tsc": "tsc",
+    "dev": "ELECTRON_START_URL=http://localhost:3000 npm run watch",
+    "build": "npm run build:electron",
+    "watch": "nodemon -e 'ts' --exec 'npm run build:electron && npm run start:electron' -w ./src",
+    "build:electron": " rollup -c rollup.config.js",
+    "build:platforms": "rm -rf  dist && electron-builder build --linux ",
+    "start:electron": "electron --disable-gpu build/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "SL",
+  "license": "ISC",
+  "devDependencies": {
+    "@rollup/plugin-typescript": "^11.1.1",
+    "asar": "^3.2.0",
+    "concurrently": "^8.0.1",
+    "electron": "24.3.1",
+    "electron-builder": "^23.6.0",
+    "nodemon": "^2.0.22",
+    "wait-on": "^7.0.1"
+  },
+  "description": "playwright-manga-translator",
+  "dependencies": {
+    "@playwright-manga-translator/lib-image-translator": "^1.0.0",
+    "chokidar": "^3.5.3",
+    "is-image": "^3.1.0",
+    "playwright": "^1.34.3",
+    "playwright-extra": "^4.3.6",
+    "puppeteer-extra-plugin-stealth": "^2.11.2",
+    "rxjs": "^7.8.1",
+    "watcher": "^2.2.2"
+  },
+  "build": {
+    "appId": "my.sl.manga-translator",
+    "files": [
+      "./public/**/*",
+      "./build/**/*",
+      "./node_modules/**/*"
+    ],
+    "linux": {
+      "target": [
+        "AppImage"
+      ]
+    }
+  }
+}

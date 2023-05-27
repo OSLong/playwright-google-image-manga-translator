@@ -1,0 +1,23 @@
+{
+  "name": "electron-playwright-manga-translator",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:all": "npm --workspaces run build",
+    "copy:react-to-electron": "rimraf -rf  apps/electron-app/public && cp -r apps/react-app/build apps/electron-app/public",
+    "electron:build-platforms": "npm -w @playwright-manga-translator/electron-app run build:platforms",
+    "copy:platforms": "cp -r apps/electron-app/dist ./dist",
+    "build:platforms": "npm run build:all && npm run copy:react-to-electron && npm run electron:build-platforms && npm run copy:platforms"
+  },
+  "author": "",
+  "license": "ISC",
+  "workspaces": [
+    "libs/*",
+    "apps/*"
+  ],
+  "description": "",
+  "dependencies": {
+    "rimraf": "^5.0.1"
+  }
+}
